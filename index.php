@@ -144,7 +144,7 @@
                                     <div class="d-md-flex ">
 
                                         <div class="form-floating w-100  mt-3">
-                                            <input type="number" name="std_num" min="4" max="15" value="4" class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="mdo@example.com">
+                                            <input type="number" name="std_num" <?php echo ($_SESSION["room"] == "freezone") ?  "min = '1' max = '1'" : "min='4' max='15'"?> <?php echo ($_SESSION["room"] == "freezone") ?  "value = '1' " : "value = '4' "?> class="form-control" id="floatingInputGrid" placeholder="name@example.com" value="mdo@example.com">
                                             <label for="floatingInputGrid">จำนวนคนเข้าใช้งาน</label>
                                         </div>
                                     </div>
@@ -160,11 +160,11 @@
                                         </div>
                                     </div>
                                     <div class="form-floating mt-3">
-                                        <select class="form-select" name="table" id="floatingSelectGrid" aria-label="Floating label select example">
+                                        <div class="form-select" name="table" id="floatingSelectGrid" aria-label="Floating label select example">
                                             <option selected value=<?php echo $_SESSION["room"]?>><?php echo $_SESSION["room"]?></option>
 
 
-                                        </select>
+                                        </div>
                                         <label for="floatingSelectGrid">เลือกจองห้องประชุม</label>
                                     </div>
 
