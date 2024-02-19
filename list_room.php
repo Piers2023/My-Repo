@@ -5,7 +5,8 @@
     <style>
         .font {
             /* Add font */
-            font-family: 'Itim', cursive;
+            font-family: 'Playfair Display', serif;
+            font-family: 'Sarabun', sans-serif;
 
         }
 
@@ -40,6 +41,9 @@
     <!-- Add font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Sarabun:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <!-- LK icon awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css  ">
@@ -66,6 +70,9 @@
                     <li class="nav-item">
                         <a class="nav-link " href="#">รายการของฉัน</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="user_history.php">ประวัติของฉัน</a>
+                    </li>
                 </ul>
 
                 <button class="btn btn-outline-primary" type="submit">เริ่มต้นจองห้องประชุม</button>
@@ -77,46 +84,79 @@
     session_start();
     require_once "qr_class.php";
     require_once "connect.php";
-
-
+    
     if (isset($_SESSION["std_id"])) {
-        $table = $_SESSION["table"];
-        $std_id = $_SESSION["std_id"];
-        $sql = "SELECT * FROM $table WHERE std_id = ?";
+        $id = $_SESSION["std_id"];
+        $sql = "SELECT * FROM user_table WHERE std_id =?";
         $db->executeInsert($sql);
-        $db->executeQuery([$std_id]);
-        if($db->rowCount() > 0){
-        $qrcode->qrcreate($_SESSION["std_id"], $_SESSION["table"]);
-    ?>
-        <div class="rows container justify-content-center d-flex " style="z-index: 99;">
-            <div class="col">
-                <div class="card" style="max-width: 540px; margin-top: 100px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <?php
-                            $qrcode->qrrender();
-                            ?>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">ตั๋วจองห้อง</h5> <br>
-                                <p class="card-text">รหัสนักศึกษา : <?php echo $_SESSION["std_id"] ?></p>
-                                <p class="card-text">ชื่อ : <?php echo $_SESSION["std_name"] ?></p>
-                                <p class="card-text">วันที่ : <?php echo $_SESSION["date"] ?></p>
-                                <p class="card-text">เวลา : <?php echo $_SESSION["time"] ?></p>
-                                <p class="card-text">ห้อง : <?php echo $_SESSION["table"] ?></p>
+        $db->executeQuery([(int)$id]);
+        $result = $db->fetchAll();
+        if ($db->rowCount()== 1){
 
+        $room = $result[0]["room"];
+        $sql = "SELECT * FROM $room WHERE std_id = ?";
+        $db->executeInsert($sql);
+        $db->executeQuery([$id]);
+        $result = $db->fetchAll();
+        if ($db->rowCount() > 0) {
+            
+            $qrcode->qrcreate($_SESSION["std_id"], $room);
+    ?>
+            <div class="rows container justify-content-center d-flex " style="z-index: 99;">
+                <div class="col">
+                    <div class="card" style="max-width: 540px; margin-top: 100px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <?php
+                                $qrcode->qrrender();
+                                ?>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">ตั๋วจองห้อง</h5> <br>
+                                    <p class="card-text">รหัสนักศึกษา : <?php echo $_SESSION["std_id"] ?></p>
+                                    <p class="card-text">ชื่อ : <?php echo $_SESSION["std_name"] ?></p>
+                                    <p class="card-text">วันที่ : <?php echo $result[0]["srt_day"] ?></p>
+                                    <p class="card-text">เวลา : <?php echo $result[0]["srt_time"] . "-" . $result[0]["end_time"] ?></p>
+                                    <p class="card-text">ห้อง : <?php echo $room ?></p>
+                                    <p class="card-text">เลขที่ : <?php echo $result[0]["number"] ?></p>
+                                    <a class="btn btn-outline-danger me-auto" href="member_process.php?delete=<?php echo $_SESSION["std_id"] ?>&table=<?php echo $room ?>">ยกเลิกการจอง</a>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     <?php
-    }else{
-        unset($_SESSION["std_id"]);
-    }}
+        }else {
+            unset($_SESSION["std_id"]);
+        }}
+    }
     ?>
+
+    <?php if (isset($_SESSION["validate"])) {
+
+    ?>
+        <div class="rows ">
+            <div class="col d-flex justify-content-center">
+                <div class="modal-dialog position-fixed w-100" style="z-index: 100; top: 8rem;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">แจ้งเตือน!</h5>
+                        </div>
+                        <div class="modal-body text-center fs-3">
+                            <p id="validate"><?php echo $_SESSION["validate"] ?></p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php unset($_SESSION["validate"]);
+    } ?>
     <!-- footer -->
     <nav class="navbar navbar-dark bg-dark position-fixed w-100" style="bottom: 0px;">
         <div class="container-fluid justify-content-center d-flex">
@@ -124,8 +164,8 @@
         </div>
     </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
+    
+    </script>
 </body>
 
 </html>

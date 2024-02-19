@@ -8,8 +8,7 @@ class Database{
 
     private $result;
 
-    public function __construct(
-        $host, $dbname, $username, $password){
+    public function __construct($host, $dbname, $username, $password){
             $this->host=$host;
             $this->dbname=$dbname;
             $this->username=$username;
@@ -43,6 +42,7 @@ class Database{
     public function fetchAll(){
         return $this->result->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     public function Query($sql){
         $this->result = $this->pdo->query($sql);
     }

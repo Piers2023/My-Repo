@@ -1,7 +1,7 @@
-<?php  
-    require_once 'connect.php';
-    $db = new Database ("localhost", "SProject", "root", "");
-     session_start();
+<?php
+require_once 'connect.php';
+$db = new Database("localhost", "SProject", "root", "");
+session_start();
 if (isset($_SESSION["UID"])) {
     if ($_SESSION["UID"] != "admin") {
         header("location:admin.php");
@@ -41,6 +41,9 @@ if (isset($_SESSION["UID"])) {
                     <li class="nav-item">
                         <a class="nav-link " href="member.php">จัดการสมาชิก</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="history.php">ประวัติการจองสมาชิก</a>
+                    </li>
                 </ul>
 
                 <form action="admin_process.php" method="post">
@@ -49,7 +52,7 @@ if (isset($_SESSION["UID"])) {
                         Add User
                     </button>
 
-                    <button type="submit" name="logout" class="btn btn-outline-primary">Logout</button>
+                    <button type="button" name="logout" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#logout">Logout</button>
                 </form>
             </div>
         </div>
@@ -57,6 +60,27 @@ if (isset($_SESSION["UID"])) {
     </form>
     </div>
 
+    <div class='modal fade' id="logout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Confirm?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" style="width: 4.5rem;" data-bs-dismiss="modal">No</button>
+                    <form action="admin_process.php" method="post">
+                        <!-- Button trigger modal -->
+
+                        <button type="submit" name="logout" class="btn btn-outline-danger">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <form action="admin_process.php" method="post" style=" margin-bottom: 0px; margin-top: 90px">
         <!-- Modal -->
@@ -97,61 +121,61 @@ if (isset($_SESSION["UID"])) {
                         <?php
                         $sql = "SELECT * FROM admin_tbl";
                         $db->Query($sql);
-                        $result=$db->fetchAll();
-                        $index=0;
-                        if (count($result)>0){
-                          foreach($result as $row){
-                            $index++;
-                            echo"<tr>";
-                            echo"<th scope='row'>".$index."</th>";
-                            echo"<td>".$row["a_user"]."</td>";
-                            echo"<td>";
-                            echo"<div class='dropdown'>";
-                            echo"<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>Edit</button>";
-                            echo"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
-                            echo"<li><button type='button' class='dropdown-item' data-bs-toggle='modal' data-bs-target='#ex".$row['id']."'>Edit</button></li>";
-                            echo"<a class='dropdown-item' href='admin_process.php?id=".$row['id']."'>Delete</a>";
-                            echo"</ul>";
-                            echo"</div>";
-                            echo"</td>";
-                            echo"</tr>";
-                          }
-                        } else{
+                        $result = $db->fetchAll();
+                        $index = 0;
+                        if (count($result) > 0) {
+                            foreach ($result as $row) {
+                                $index++;
+                                echo "<tr>";
+                                echo "<th scope='row'>" . $index . "</th>";
+                                echo "<td>" . $row["a_user"] . "</td>";
+                                echo "<td>";
+                                echo "<div class='dropdown'>";
+                                echo "<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>Edit</button>";
+                                echo "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
+                                echo "<li><button type='button' class='dropdown-item' data-bs-toggle='modal' data-bs-target='#ex" . $row['id'] . "'>Edit</button></li>";
+                                echo "<a class='dropdown-item' href='admin_process.php?id=" . $row['id'] . "'>Delete</a>";
+                                echo "</ul>";
+                                echo "</div>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
                             echo "ไม่พบข้อมูลผู้ใช้";
                         }
-                        ?>                    
-                        
+                        ?>
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <?php foreach($result as $row){
+    <?php foreach ($result as $row) {
         echo "";
-        ?>
-    <form action="admin_process.php" method="post" style=" margin-bottom: 0px; margin-top: 90px">
-        <!-- Modal -->
-         <div class='modal fade' id="ex<?php echo $row["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <label for="user" class="mb-1">Username</label>
-                        <input type="text" name="a_user" placeholder="username" style="border-radius: 10px; display: block; margin-bottom: 9px; width: 50%;">
-                        <label for="pass" class="mb-1">Password</label>
-                        <input type="password" name="a_pass" placeholder="password" style="border-radius: 10px; display: block; margin-bottom: 9px; width: 50%;">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="another" value=<?php echo $row["id"]?>>Save</button>
+    ?>
+        <form action="admin_process.php" method="post" style=" margin-bottom: 0px; margin-top: 90px">
+            <!-- Modal -->
+            <div class='modal fade' id="ex<?php echo $row["id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="user" class="mb-1">Username</label>
+                            <input type="text" name="a_user" placeholder="username" style="border-radius: 10px; display: block; margin-bottom: 9px; width: 50%;">
+                            <label for="pass" class="mb-1">Password</label>
+                            <input type="password" name="a_pass" placeholder="password" style="border-radius: 10px; display: block; margin-bottom: 9px; width: 50%;">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="another" value=<?php echo $row["id"] ?>>Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
     <?php }
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

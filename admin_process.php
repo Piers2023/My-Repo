@@ -35,6 +35,7 @@ if (isset($_POST["n_user"])) {
     header("location:dashboard.php");
 }
 
+//Edit
 if (isset($_POST["a_user"]) && $_POST["a_pass"]){
     $a_user = $_POST["a_user"];
     $a_pass = $_POST["a_pass"];
