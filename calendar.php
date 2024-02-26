@@ -94,12 +94,12 @@ class Calendar
 
                 $currentyear = date("Y");
                 if ($dayCount < date("d")) {
-
+                    $starttime = $this->result[$this->num]["srt_time"];
+                    $endtime = $this->result[$this->num]["end_time"];
+                    $namearray = $this->result[$this->num]["srt_day"];
                     if (isset($this->result[$this->num])) {
 
-                        $starttime = $this->result[$this->num]["srt_time"];
-                        $endtime = $this->result[$this->num]["end_time"];
-                        $namearray = $this->result[$this->num]["srt_day"];
+                        
                         if ($dmy == $namearray) {
                             if ($dayCount > date("d")) {
                                 echo "<td class='m-0 p-0'><button type='button'
@@ -109,35 +109,35 @@ class Calendar
 
                                 $this->num++;
                             } else {
-                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                             data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate btn-secondary ' disabled>" . $dayCount . "</button></td>";
                                 $this->num++;
                             }
                         } else {
                             if ($this->month == date("n") && $this->year == $currentyear) {
-                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                             data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate btn-secondary ' disabled>" . $dayCount . "</button></td>";
                             } else {
-                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                                echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                         data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate' >" . $dayCount . "</button></td>";
                             }
                         }
                     } else {
                         if ($this->month == date("n") && $this->year == $currentyear) {
-                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                         data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate btn-secondary ' disabled>" . $dayCount . "</button></td>";
                         } else {
-                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                     data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate' >" . $dayCount . "</button></td>";
                         }
                     }
                 } else {
-
+                    $namearray = $this->result[$this->num]["srt_day"];
+                    $starttime = $this->result[$this->num]["srt_time"];
+                    $endtime = $this->result[$this->num]["end_time"];
                     if (isset($this->result[$this->num])) {
 
-                        $namearray = $this->result[$this->num]["srt_day"];
-                        $starttime = $this->result[$this->num]["srt_time"];
-                        $endtime = $this->result[$this->num]["end_time"];
+
 
                         if ($dmy == $namearray) {
                             echo "<td class='m-0 p-0'><button type='button'
@@ -147,11 +147,11 @@ class Calendar
 
                             $this->num++;
                         } else {
-                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                            echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                 data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate' >" . $dayCount . "</button></td>";
                         }
                     } else {
-                        echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount)'
+                        echo "<td class='m-0 p-0'><button type='button' onclick='setvaluedate($dayCount, $namearray)'
                 data-bs-toggle='modal' data-bs-target='" . $this->modal1 . "' class='w-100 p-3 btn mydate' >" . $dayCount . "</button></td>";
                     }
                 }
@@ -172,8 +172,6 @@ class Calendar
         echo "</tr>";
         echo "</tbody>";
         echo "</table>";
-
-        
     }
 
     public function getmonth()

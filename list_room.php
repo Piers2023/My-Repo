@@ -131,7 +131,15 @@
     <?php
         }else {
             unset($_SESSION["std_id"]);
-        }}
+            
+        }}else {?>
+        <div class="rows mt-5">
+            <div class="col d-flex justify-content-center">
+            <br><br><br><br><br><br><br>ไม่พบข้อมูลการจอง
+            </div>
+        </div>
+        <?php
+        }
     }
     ?>
 

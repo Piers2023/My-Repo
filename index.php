@@ -15,7 +15,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            background-image: url("https://cdn.discordapp.com/attachments/1153996048411414580/1154445144175693924/354045749_568272095479959_4306439740218074364_n.png?ex=6514f892&is=6513a712&hm=544b0ea856fecbea4089168460aee3ee15637a971099b8b352b17942248f60bb&");
+            background-image: url("https://cdn.discordapp.com/attachments/1209163392527503442/1209207371717672960/bg.jpg?ex=65e6151f&is=65d3a01f&hm=faa6b1ed25ec5bab8b6f828fa3e2f542849aa030c4a3db44b25152c641b53689&");
         }
 
         .table-equal {
@@ -341,14 +341,9 @@
                     <img src="https://cdn.discordapp.com/attachments/1154752366537621634/1209163328820224171/ls3.jpg?ex=65e5ec1a&is=65d3771a&hm=5e3fff4c0b4242e072f47af66c15d1c54c93fe4053b878a8f734ba87e062a002&" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">LS1</h5>
-                        <p class="card-text">จำนวนคนที่รองรับ: 30 คน</p>
+                        <p class="card-text">จำนวนคนที่รองรับ: 8 คน</p>
 
-                        <p class="card-text"><small>
-                                <div style="width:12px; height: 12px;" class="spinner-grow text-success " role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                พร้อมใช้งาน
-                            </small></p>
+                        
                     </div>
                 </div>
                 <div class="card">
@@ -357,26 +352,16 @@
                         <h5 class="card-title">LS2</h5>
                         <p class="card-text">จำนวนคนที่รองรับ: 8 คน</p>
 
-                        <p class="card-text"><small>
-                                <div style="width:12px; height: 12px;" class="spinner-grow text-success " role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                พร้อมใช้งาน
-                            </small></p>
+                        
                     </div>
                 </div>
                 <div class="card">
                     <img src="https://cdn.discordapp.com/attachments/1154752366537621634/1209179227296108615/ls1.jpg?ex=65e5fae9&is=65d385e9&hm=5639b0f7a165bac575cbdc7351bc0abf52605c08efa81b9d9d37c3d0ed56cf98&" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">LS3</h5>
-                        <p class="card-text">จำนวนคนที่รองรับ: 30 คน</p>
+                        <p class="card-text">จำนวนคนที่รองรับ: 12 คน</p>
 
-                        <p class="card-text"><small>
-                                <div style="width:12px; height: 12px;" class="spinner-grow text-success " role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                พร้อมใช้งาน
-                            </small></p>
+                        
                     </div>
                 </div>
             </div>
@@ -413,12 +398,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Freezone</h5>
 
-                        <p class="card-text"><small>
-                                <div style="width:12px; height: 12px;" class="spinner-grow text-success " role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                                พร้อมใช้งาน
-                            </small></p>
+                        
                     </div>
                 </div>
             

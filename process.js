@@ -6,8 +6,8 @@ function sendday(){
     
      document.getElementById("clickdate").value = day;
     }
-function setvaluedate(buttonvalue) {
-    document.getElementById("clickdate").value = buttonvalue;
+function setvaluedate(buttonvalue, date) {
+    document.getElementById("clickdate").value = buttonvalue + " " + date;
     
 }
 
